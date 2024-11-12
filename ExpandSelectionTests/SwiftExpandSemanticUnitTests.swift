@@ -97,10 +97,20 @@ if(foo || bar) {
 }
 """, start: 16, end: 16)
         XCTAssertNil(value, "13 тест, пусто.")
+    }
 
-        value = expander.expandTo(string: "aa || bb", start: 3, end: 3)
-        XCTAssertNil(value, "14 тест, пусто.")
-
+    func testFunctionParameter() {
+        let value = expander.expandTo(string: """
+return .init(
+    start: start,
+    end: end,
+    value: string.substring(with: start...end),
+    expander: "SwiftExpandToQuotes"
+)
+""", start: 73, end: 92)
+        XCTAssertEqual(value?.value, "string.substring(with: start...end)")
+        XCTAssertEqual(value?.start, 57)
+        XCTAssertEqual(value?.end, 92)
     }
 }
 

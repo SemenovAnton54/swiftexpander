@@ -13,15 +13,15 @@ class SwiftExpandToVariables: SwiftExpanderProtocol {
     }
 
     private func expandToVariables(string: String, start: Int, end: Int) -> ExpanderResult? {
-        guard !string.substring(with: start...end).contains("\n") else {
-            return nil
-        }
-
         let endOfLine = Character("\n")
 
         var newStart = start - 1
 
-        while newStart > 0 {
+        guard string.substring(with: newStart...start).first != "(" || string.substring(with: end...end+1).first != ")" else {
+            return nil
+        }
+        
+        while newStart >= 0 {
             defer {
                 newStart -= 1
             }
@@ -51,18 +51,21 @@ class SwiftExpandToVariables: SwiftExpanderProtocol {
                 newEnd += 1
             }
 
-            guard string.substring(with: (newEnd-1)...newEnd).first == endOfLine else {
+            guard string.substring(with: newEnd...newEnd+1).first == endOfLine
+                    || string.substring(with: newEnd...newEnd+1).first == ","
+                    || string.substring(with: newEnd...newEnd+1).first == ")"
+            else {
                 continue
             }
 
-            guard (newEnd - 1) != end else {
+            guard newEnd != end else {
                 break
             }
 
             return .init(
                 start: start,
-                end: newEnd - 1,
-                value: string.substring(with: start...newEnd - 1),
+                end: newEnd,
+                value: string.substring(with: start...newEnd),
                 expander: "SwiftExpandToVariables"
             )
         }
@@ -93,7 +96,7 @@ class SwiftExpandToVariables: SwiftExpanderProtocol {
 
             return .init(
                 start: newStart + lastNoSpaceSymbolAgo + 1,
-                end: end - 1,
+                end: end,
                 value: string.substring(with: newStart + lastNoSpaceSymbolAgo + 1...end),
                 expander: "SwiftExpandToVariables"
             )

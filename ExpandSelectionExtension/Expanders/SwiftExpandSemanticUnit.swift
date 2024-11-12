@@ -10,7 +10,7 @@ import Foundation
 class SwiftExpandSemanticUnit: SwiftExpanderProtocol {
     private let utils: SwiftExpanderUtils
     private lazy var symbols = "\\(\\[\\{\\)\\]\\}"
-    private lazy var breakSymbols = ",;=&|\n"
+    private lazy var breakSymbols = ",:;=&|\n"
     private lazy var lookBackBreakSymbols = breakSymbols + "([{"
     private lazy var lookForwardBreakSymbols = breakSymbols + ")]}"
     private lazy var counterparts = [

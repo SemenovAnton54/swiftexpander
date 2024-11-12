@@ -12,6 +12,7 @@ class SwiftExpanderToSymbols {
     private lazy var openingSymbols = "\\(\\[\\{"
     private lazy var closingSymbols = "\\)\\]\\}"
     private lazy var counterparts = [
+      "\"\"\"":"\"\"\"",
       "(":")",
       "{":"}",
       "[":"]",
