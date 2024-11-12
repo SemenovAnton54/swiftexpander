@@ -29,6 +29,13 @@ extension String {
         return String(self[startIndex..<endIndex])
     }
 
+    func substring(with r: ClosedRange<Int>) -> String {
+        let startIndex = index(from: max(r.lowerBound, 0))
+        let endIndex = index(from: min(r.upperBound, count))
+    
+        return String(self[startIndex..<endIndex])
+    }
+
     subscript (bounds: CountableClosedRange<Int>) -> String {
         let start = index(startIndex, offsetBy: bounds.lowerBound)
         let end = index(startIndex, offsetBy: bounds.upperBound)

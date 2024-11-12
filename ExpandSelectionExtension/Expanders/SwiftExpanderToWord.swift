@@ -10,7 +10,7 @@ import Foundation
 class SwiftExpanderToWord {
     let expander = SwiftExpanderToRegexSet()
     
-    func expandToWord(string: String, start: Int, end: Int) -> (start: Int, end: Int)? {
+    func expandToWord(string: String, start: Int, end: Int) -> ExpanderResult? {
         guard let regex = try? NSRegularExpression(pattern: "[\\w$]") else {
             return nil
         }

@@ -24,11 +24,11 @@ class SwiftExpanderToSymbols {
         self.utils = utils
     }
 
-    func expandTo(text: String, start: Int, end: Int) -> (start: Int, end: Int)? {
-        expandToSymbols(string: text, start: start, end: end)
+    func expandTo(string: String, start: Int, end: Int) -> ExpanderResult? {
+        expandToSymbols(string: string, start: start, end: end)
     }
 
-    private func expandToSymbols(string: String, start: Int, end: Int)  -> (start: Int, end: Int)?  {
+    private func expandToSymbols(string: String, start: Int, end: Int)  -> ExpanderResult?  {
         guard let symbolsRegex = try? NSRegularExpression(pattern: "[" + openingSymbols + closingSymbols + "]"),
               let quotesRegex = try? NSRegularExpression(pattern: "(['\"])(?:\\1|.*?\\1)") else {
             return nil
@@ -123,7 +123,7 @@ class SwiftExpanderToSymbols {
             search -= 1
         }
 
-        let symbols: [String] = [symbol, counterparts[symbol]!]
+        let symbols: [String] = [symbol, counterparts[symbol]].compactMap { $0 }
         forwardSymbolsStack.append(symbol)
 
         search = end
@@ -158,9 +158,20 @@ class SwiftExpanderToSymbols {
         }
 
         if start == symbolsStart, end == symbolsEnd {
-            return (symbolsStart - 1, symbolsEnd + 1)
+            return .init(
+                start: symbolsStart - 1,
+                end: symbolsEnd + 1,
+                value: string.substring(with: symbolsStart...symbolsEnd),
+                expander: "SwiftExpanderToSymbols"
+            )
+
         } else {
-            return (symbolsStart, symbolsEnd)
+            return .init(
+                start: symbolsStart,
+                end: symbolsEnd,
+                value: string.substring(with: symbolsStart...symbolsEnd),
+                expander: "SwiftExpanderToSymbols"
+            )
         }
     }
 }

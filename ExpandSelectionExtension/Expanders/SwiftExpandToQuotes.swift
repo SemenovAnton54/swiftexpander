@@ -10,11 +10,11 @@ import Foundation
 class SwiftExpandToQuotes: SwiftExpanderProtocol {
     private let pattern = "(['\"])(?:\\.|.)*?\\1"
 
-    func expandTo(text: String, start: Int, end: Int) -> (start: Int, end: Int)? {
-        expandToQuotes(string: text, start: start, end: end)
+    func expandTo(string: String, start: Int, end: Int) -> ExpanderResult? {
+        expandToQuotes(string: string, start: start, end: end)
     }
 
-    private func expandToQuotes(string: String, start: Int, end: Int) -> (start: Int, end: Int)? {
+    private func expandToQuotes(string: String, start: Int, end: Int) -> ExpanderResult? {
         guard let regex = try? NSRegularExpression(pattern: pattern) else {
             return nil
         }
@@ -47,11 +47,21 @@ class SwiftExpandToQuotes: SwiftExpanderProtocol {
             let quotesContentEnd = quotesEnd - 1
 
             guard start != quotesContentStart || end != quotesContentEnd else {
-                return (quotesStart, quotesEnd)
+                return .init(
+                    start: quotesStart,
+                    end: quotesEnd,
+                    value: string.substring(with: quotesStart...quotesEnd),
+                    expander: "SwiftExpandToQuotes"
+                )
             }
 
             guard start <= quotesStart || end >= quotesEnd else {
-                return (quotesContentStart, quotesContentEnd)
+                return .init(
+                    start: quotesContentStart,
+                    end: quotesContentEnd,
+                    value: string.substring(with: quotesStart...quotesEnd),
+                    expander: "SwiftExpandToQuotes"
+                )
             }
 
             continue

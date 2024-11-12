@@ -11,7 +11,7 @@ import XcodeKit
 class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     let expander = SwiftExpander()
 
-    func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
+    func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void) -> Void {
         defer {
             completionHandler(nil)
         }

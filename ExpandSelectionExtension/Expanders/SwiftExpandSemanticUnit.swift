@@ -26,11 +26,11 @@ class SwiftExpandSemanticUnit: SwiftExpanderProtocol {
         self.utils = utils
     }
 
-    func expandTo(text: String, start: Int, end: Int) -> (start: Int, end: Int)? {
-        expandToSemanticUnit(text: text, start: start, end: end)
+    func expandTo(string: String, start: Int, end: Int) -> ExpanderResult? {
+        expandToSemanticUnit(string: string, start: start, end: end)
     }
 
-    private func expandToSemanticUnit(text: String, start: Int, end: Int)  -> (start: Int, end: Int)?  {
+    private func expandToSemanticUnit(string: String, start: Int, end: Int)  -> ExpanderResult?  {
         var symbolStack = [String]()
         let regex = try! NSRegularExpression(pattern: "([" + symbols + breakSymbols + "])")
         var search = start - 1
@@ -42,7 +42,7 @@ class SwiftExpandSemanticUnit: SwiftExpanderProtocol {
                 break
             }
 
-            let char = Array(text)[search]
+            let char = Array(string)[search]
 
             if (regex.firstMatch(in: String(char), range: NSRange(location: 0, length: char.utf16.count)) != nil) {
                 if lookBackBreakSymbols.contains(char), symbolStack.count == 0 {
@@ -67,7 +67,7 @@ class SwiftExpandSemanticUnit: SwiftExpanderProtocol {
         search = end
 
         while true {
-            let char = text.substring(with: search..<search + 1)
+            let char = string.substring(with: search..<search + 1)
 
             if (regex.firstMatch(in: String(char), range: NSRange(location: 0, length: char.utf16.count)) != nil) {
                 if lookForwardBreakSymbols.contains(char), symbolStack.count == 0 {
@@ -84,14 +84,14 @@ class SwiftExpandSemanticUnit: SwiftExpanderProtocol {
                 }
             }
 
-            if search >= text.count - 1 {
+            if search >= string.count - 1 {
                 return nil
             }
 
             search += 1
         }
 
-        let selectedString = text.substring(with: newStart..<newEnd)
+        let selectedString = string.substring(with: newStart..<newEnd)
 
         if let trimValue = utils.trim(string: selectedString) {
             newStart += trimValue.start
@@ -105,7 +105,12 @@ class SwiftExpandSemanticUnit: SwiftExpanderProtocol {
         if newStart > start || newEnd < end {
             return nil
         }
-        
-        return (newStart, newEnd)
+
+        return .init(
+            start: newStart,
+            end: newEnd,
+            value: string.substring(with: newStart...newEnd),
+            expander: "SwiftExpandSemanticUnit"
+        )
     }
 }

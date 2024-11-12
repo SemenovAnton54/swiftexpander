@@ -8,7 +8,7 @@
 import Foundation
 
 class SwiftExpanderToRegexSet {
-    func expandToRegexRule(string: String, start: Int, end: Int, regex: NSRegularExpression) -> (start: Int, end: Int)? {
+    func expandToRegexRule(string: String, start: Int, end: Int, regex: NSRegularExpression) -> ExpanderResult? {
         if start != end {
             let selection = string.substring(with: start..<end)
             let results = regex.matches(in: selection, range: NSRange(string.startIndex..., in: selection))
@@ -55,7 +55,12 @@ class SwiftExpanderToRegexSet {
         if start == newStart && end == newEnd {
             return nil
         } else {
-            return (start: newStart, end: newEnd)
+            return .init(
+                start: newStart,
+                end: newEnd,
+                value: string.substring(with: newStart...newEnd),
+                expander: "SwiftExpanderToRegexSet"
+            )
         }
     }
 }

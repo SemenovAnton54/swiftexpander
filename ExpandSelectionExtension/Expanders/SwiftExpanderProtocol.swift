@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SwiftExpanderProtocol {
-    func expandTo(text: String, start: Int, end: Int) -> (start: Int, end: Int)?
+    func expandTo(string: String, start: Int, end: Int) -> ExpanderResult?
 }
