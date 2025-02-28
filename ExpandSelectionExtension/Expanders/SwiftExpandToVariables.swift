@@ -14,13 +14,55 @@ class SwiftExpandToVariables: SwiftExpanderProtocol {
 
     private func expandToVariables(string: String, start: Int, end: Int) -> ExpanderResult? {
         let endOfLine = Character("\n")
+        let excludeSymbols: [Character] = ["\n", " "]
 
         var newStart = start - 1
+        var firstLeftSymbol: Character?
+        var firstRightSymbol: Character?
 
-        guard string.substring(with: newStart...start).first != "(" || string.substring(with: end...end+1).first != ")" else {
+        while newStart >= 0 {
+            defer {
+                newStart -= 1
+            }
+
+            guard let symbol = string.substring(with: newStart...start).first else {
+                break
+            }
+
+            guard !excludeSymbols.contains(symbol) else {
+                continue
+            }
+
+            firstLeftSymbol = symbol
+            break
+        }
+
+        var newEnd = end
+
+        while newEnd < string.count {
+            defer {
+                newEnd += 1
+            }
+
+            guard let symbol = string.substring(with: newEnd...newEnd+1).first else {
+                break
+            }
+
+            guard !excludeSymbols.contains(symbol) else {
+                continue
+            }
+
+            firstRightSymbol = symbol
+            break
+        }
+
+
+        guard firstLeftSymbol != "(" || firstRightSymbol != ")" else {
             return nil
         }
-        
+
+
+        newStart = start - 1
         while newStart >= 0 {
             defer {
                 newStart -= 1
@@ -44,8 +86,7 @@ class SwiftExpandToVariables: SwiftExpanderProtocol {
             )
         }
 
-        var newEnd = end
-
+        newEnd = end
         while newEnd < string.count {
             defer {
                 newEnd += 1
@@ -65,7 +106,7 @@ class SwiftExpandToVariables: SwiftExpanderProtocol {
             return .init(
                 start: start,
                 end: newEnd,
-                value: string.substring(with: start...newEnd),
+                value: string.substring(with: start...newEnd+1),
                 expander: "SwiftExpandToVariables"
             )
         }

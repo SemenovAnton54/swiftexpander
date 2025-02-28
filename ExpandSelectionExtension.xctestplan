@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "BE09D5D2-AE19-4C4F-B8C9-AF2751BCADD9",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "environmentVariableEntries" : [
+      {
+        "key" : "IDEPreferLogStreaming",
+        "value" : "YES"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ExpandSelection.xcodeproj",
+      "identifier" : "6866162F2A361A7100209C4A",
+      "name" : "ExpandSelection"
+    },
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ExpandSelection.xcodeproj",
+        "identifier" : "68F8230E2A3E111600F4D1E2",
+        "name" : "ExpandSelectionTests"
+      }
+    }
+  ],
+  "version" : 1
+}

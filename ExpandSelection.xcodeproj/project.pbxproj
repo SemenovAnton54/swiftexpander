@@ -119,6 +119,7 @@
 		686616522A361AA300209C4A /* ExpandSelectionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExpandSelectionExtension.entitlements; sourceTree = "<group>"; };
 		686E80352CE2878B00697E69 /* SwiftExpanderToVariablesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExpanderToVariablesTests.swift; sourceTree = "<group>"; };
 		686E80382CE28A5F00697E69 /* Collection+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extensions.swift"; sourceTree = "<group>"; };
+		687196542D27243400EEF032 /* ExpandSelectionExtension.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ExpandSelectionExtension.xctestplan; sourceTree = "<group>"; };
 		68BCC6972CE2844900718FD3 /* SwiftExpandToVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExpandToVariables.swift; sourceTree = "<group>"; };
 		68D452632A502275001D4C46 /* SwiftExpandSemanticUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExpandSemanticUnitTests.swift; sourceTree = "<group>"; };
 		68D452672A50670A001D4C46 /* SwiftExpanderToSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftExpanderToSymbols.swift; sourceTree = "<group>"; };
@@ -169,6 +170,7 @@
 		686616272A361A7100209C4A = {
 			isa = PBXGroup;
 			children = (
+				687196542D27243400EEF032 /* ExpandSelectionExtension.xctestplan */,
 				686616322A361A7100209C4A /* ExpandSelection */,
 				6866164C2A361AA300209C4A /* ExpandSelectionExtension */,
 				68F823102A3E111600F4D1E2 /* ExpandSelectionTests */,
@@ -702,7 +704,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SUZ95D4UJX;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = UITestsAplications.ExpandSelectionTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -720,7 +722,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SUZ95D4UJX;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = UITestsAplications.ExpandSelectionTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

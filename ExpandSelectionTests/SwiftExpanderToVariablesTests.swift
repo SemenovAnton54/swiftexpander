@@ -85,7 +85,7 @@ class SwiftExpander {
 """, start: 45, end: 61)
         XCTAssertEqual(value?.value, "private let utils = SwiftExpanderUtils()")
         XCTAssertEqual(value?.start, 45, "первый тест, startIndex")
-        XCTAssertEqual(value?.end, 85, "первый тест, endIndex")
+        XCTAssertEqual(value?.end, 84, "первый тест, endIndex")
     }
 
     func testToStringOnLine() throws {
